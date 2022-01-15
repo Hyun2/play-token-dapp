@@ -1,4 +1,4 @@
-import { AppProps } from 'next/app';
+import { AppProps } from "next/app";
 import { useEffect } from "react";
 import Head from "next/head";
 import { MantineProvider } from "@mantine/core";
@@ -7,8 +7,6 @@ import { useStore } from "../utils/store";
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props;
-  const setWeb3 = useStore((state) => state.setWeb3);
-  const [setAccount, setUser] = useStore((state) => [state.setAccount, state.setUser]);
 
   useEffect(() => {
     if (typeof window.ethereum !== "undefined") {
