@@ -3,13 +3,18 @@ import { ethers } from "ethers";
 import Web3Modal from "web3modal";
 import { IErc20 } from "../typings/types";
 
-export const connectToWallet = async (erc20List: IErc20[], addErc20List: IStore["addErc20List"]) => {
+export const connectToWallet = async (
+  setWallet: IStore["setWallet"],
+  erc20List: IErc20[],
+  addErc20List: IStore["addErc20List"],
+) => {
   const web3Modal = new Web3Modal();
   const connection = await web3Modal.connect();
   const provider = new ethers.providers.Web3Provider(connection);
   const signer = provider.getSigner();
 
   const walletAddress = await signer.getAddress();
+  setWallet(walletAddress);
   // console.log('Wallet Address: ', walletAddress);
 
   let walletBalance = await provider.getBalance(walletAddress);

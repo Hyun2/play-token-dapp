@@ -3,7 +3,7 @@ import { AppShell, Badge, Burger, Button, Header, MediaQuery, Navbar, Text, useM
 import Image from "next/image";
 import { Input } from "@mantine/core";
 import Link from "next/link";
-import styled from "styled-components";
+import styled from "@emotion/styled";
 import axios from "axios";
 import { useInputState } from "@mantine/hooks";
 import { useRouter } from "next/router";
@@ -25,11 +25,7 @@ const Layout: FC = ({ children }) => {
   const [opened, setOpened] = useState(false);
   const [wallet, setWallet] = useStore((state) => [state.wallet, state.setWallet]);
   const [erc20List, setErc20List] = useStore((state) => [state.erc20List, state.setErc20List]);
-  const [search, setSearch] = useInputState("");
-  const router = useRouter();
   const theme = useMantineTheme();
-
-  console.log(erc20List);
 
   return (
     <AppShell
@@ -59,13 +55,13 @@ const Layout: FC = ({ children }) => {
               </Link>
             </CButton>
             <CButton variant="white" onClick={() => setOpened(!opened)}>
-              <Link href="/explore-collections" passHref>
-                <CText>Explore</CText>
+              <Link href="/inside-wallet" passHref>
+                <CText>지갑 조회</CText>
               </Link>
             </CButton>
             <CButton variant="white" onClick={() => setOpened(!opened)}>
-              <Link href="/create" passHref>
-                <CText>Create</CText>
+              <Link href="/mint-nft" passHref>
+                <CText>NFT 민트</CText>
               </Link>
             </CButton>
           </Navbar>
@@ -98,7 +94,7 @@ const Layout: FC = ({ children }) => {
                         alignSelf: "center",
                       }}
                     >
-                      NFT GGanbu
+                      TOZAU
                     </Text>
                   </Link>
                 </div>
@@ -106,38 +102,23 @@ const Layout: FC = ({ children }) => {
             </div>
 
             <div style={{ display: "flex", alignItems: "center" }}>
-              <Input
-                value={search}
-                onChange={setSearch}
-                onKeyDown={(e: any) => {
-                  if (e.key === "Enter") {
-                    router.push(`/explore-collections?search=${search}`);
-                  }
-                }}
-                style={{ marginRight: "20px", width: "300px" }}
-                variant="default"
-                placeholder="Search"
-              />
               <MediaQuery smallerThan="sm" styles={{ display: "none !important" }}>
                 <div style={{ display: "flex" }}>
-                  <Link href="/explore-collections" passHref>
-                    <CText>Explore</CText>
+                  <Link href="/inside-wallet" passHref>
+                    <CText>지갑 조회</CText>
                   </Link>
-                  <Link href="/create" passHref>
-                    <CText>Create</CText>
+                  <Link href="/mint-nft" passHref>
+                    <CText>민트 NFT</CText>
                   </Link>
                 </div>
               </MediaQuery>
-            </div>
-
-            <div style={{ display: "flex", alignItems: "center" }}>
               {wallet && <Badge>{wallet.slice(0, 4) + "..." + wallet.slice(-4)}</Badge>}
               {/* {wallet && <Profile />} */}
 
               {!wallet && (
                 <Button
                   style={{ marginLeft: "20px" }}
-                  onClick={() => connectToWallet(erc20List, setErc20List)}
+                  onClick={() => connectToWallet(setWallet, erc20List, setErc20List)}
                   variant="light"
                   color="orange"
                 >
