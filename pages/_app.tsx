@@ -2,22 +2,23 @@ import { AppProps } from "next/app";
 import { useEffect } from "react";
 import Head from "next/head";
 import { MantineProvider } from "@mantine/core";
-import Layout from "../components/layout";
+import Layout from "../components/Layout";
 import useStore, { IStore } from "../utils/store";
 import { connectToWallet } from "../utils";
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props;
   const [erc20List, setErc20List] = useStore((state: IStore) => [state.erc20List, state.setErc20List]);
+  const setWallet = useStore((state) => state.setWallet);
 
   useEffect(() => {
     if (typeof window.ethereum !== "undefined") {
       // window.ethereum이 있다면
       try {
-        connectToWallet(erc20List, setErc20List);
+        connectToWallet(setWallet, erc20List, setErc20List);
 
         window.ethereum.on("accountsChanged", () => {
-          connectToWallet(erc20List, setErc20List);
+          connectToWallet(setWallet, erc20List, setErc20List);
         });
       } catch (err) {
         console.log(err);

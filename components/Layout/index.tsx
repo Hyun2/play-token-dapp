@@ -7,8 +7,8 @@ import styled from "@emotion/styled";
 import axios from "axios";
 import { useInputState } from "@mantine/hooks";
 import { useRouter } from "next/router";
-import useStore from "../utils/store";
-import { connectToWallet } from "../utils";
+import useStore from "../../utils/store";
+import { connectToWallet } from "../../utils";
 
 const CText = styled(Text)`
   && {
