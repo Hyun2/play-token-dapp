@@ -10,15 +10,23 @@ const CCard = styled(Card)`
   margin-top: 10px;
 `;
 
-const Erc721Card = ({ erc721 }: { erc721: IErc721 }) => {
+const Erc721Card = ({
+  erc721,
+  setSelectedErc721,
+  setOpened,
+}: {
+  erc721: IErc721;
+  setSelectedErc721: (erc721: IErc721) => void;
+  setOpened: (bool: boolean) => void;
+}) => {
   const theme = useMantineTheme();
 
   return (
     <CCard
-      // onClick={() => {
-      //   toggleTransferErc721Modal();
-      //   setSelectedErc721(erc721);
-      // }}
+      onClick={() => {
+        setOpened(true);
+        setSelectedErc721(erc721);
+      }}
       style={{ marginTop: "10px", cursor: "pointer" }}
       shadow="sm"
       padding="lg"

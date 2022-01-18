@@ -24,6 +24,7 @@ export const connectToWallet = async (
   addErc20List({
     name: "Ethereum",
     symbol: "ETH",
+    tokenCA: "",
     balance: parseFloat(balance),
   });
 

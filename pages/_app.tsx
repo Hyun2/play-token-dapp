@@ -29,7 +29,7 @@ export default function App(props: AppProps) {
   return (
     <>
       <Head>
-        <title>NFT GGanbu</title>
+        <title>TOZAU - Play Token DApp</title>
         <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
 
         <link rel="preconnect" href="https://fonts.googleapis.com" />

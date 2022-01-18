@@ -1,6 +1,7 @@
 export interface IErc20 {
   name: string;
   symbol: string;
+  tokenCA: string;
   balance: number;
 }
 
