@@ -16,7 +16,7 @@ const Erc20Column = () => {
   const [selectedErc20, setSelectedErc20] = useState<IErc20 | null>(null);
   const [recipient, setRecipient] = useInputState("");
   const [amount, setAmount] = useInputState("");
-  const [provider, signer] = useStore((state) => [state.provider, state.signer]);
+  const signer = useStore((state) => state.signer);
   const [tokenCA, setTokenCA] = useInputState("");
   const addErc20List = useStore((state) => state.addErc20List);
   // const [transferErc20ModalOpend, setTransferErc20ModalOpend] = useState(false);

@@ -33,11 +33,11 @@ contract TozauNFT is ERC721URIStorage, Ownable, ERC721Enumerable {
     return super.tokenURI(tokenId);
   }
 
-  function mintNFT(address recipient, string memory _tokenURI) public onlyOwner returns (uint256) {
+  function mintNFT(string memory _tokenURI) public onlyOwner returns (uint256) {
     _tokenIds.increment();
 
     uint256 newItemId = _tokenIds.current();
-    _mint(recipient, newItemId);
+    _mint(msg.sender, newItemId);
     _setTokenURI(newItemId, _tokenURI);
 
     return newItemId;
