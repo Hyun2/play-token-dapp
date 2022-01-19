@@ -3,15 +3,25 @@ import { ethers } from "ethers";
 import Web3Modal from "web3modal";
 import { IErc20 } from "../typings/types";
 
-export const connectToWallet = async (
-  setWallet: IStore["setWallet"],
-  erc20List: IErc20[],
-  addErc20List: IStore["addErc20List"],
-) => {
+export const connectToWallet = async ({
+  setWallet,
+  erc20List,
+  setErc20List,
+  setProvider,
+  setSigner,
+}: {
+  setWallet: IStore["setWallet"];
+  erc20List: IErc20[];
+  setErc20List: IStore["setErc20List"];
+  setProvider: IStore["setProvider"];
+  setSigner: IStore["setSigner"];
+}) => {
   const web3Modal = new Web3Modal();
   const connection = await web3Modal.connect();
   const provider = new ethers.providers.Web3Provider(connection);
+  setProvider(provider);
   const signer = provider.getSigner();
+  setSigner(signer);
 
   const walletAddress = await signer.getAddress();
   setWallet(walletAddress);
@@ -21,7 +31,7 @@ export const connectToWallet = async (
   const balance = ethers.utils.formatEther(walletBalance);
   // console.log('Balance: ', walletBalance);
 
-  addErc20List({
+  setErc20List({
     name: "Ethereum",
     symbol: "ETH",
     tokenCA: "",

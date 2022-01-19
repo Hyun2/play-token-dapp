@@ -10,15 +10,16 @@ export default function App(props: AppProps) {
   const { Component, pageProps } = props;
   const [erc20List, setErc20List] = useStore((state: IStore) => [state.erc20List, state.setErc20List]);
   const setWallet = useStore((state) => state.setWallet);
+  const [setProvider, setSigner] = useStore((state) => [state.setProvider, state.setSigner]);
 
   useEffect(() => {
     if (typeof window.ethereum !== "undefined") {
       // window.ethereum이 있다면
       try {
-        connectToWallet(setWallet, erc20List, setErc20List);
+        connectToWallet({ setWallet, erc20List, setErc20List, setProvider, setSigner });
 
         window.ethereum.on("accountsChanged", () => {
-          connectToWallet(setWallet, erc20List, setErc20List);
+          connectToWallet({ setWallet, erc20List, setErc20List, setProvider, setSigner });
         });
       } catch (err) {
         console.log(err);
