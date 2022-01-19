@@ -3,9 +3,9 @@ import create from "zustand";
 import { IErc20, IErc721 } from "../typings/types";
 
 export interface IStore {
-  provider: ethers.providers.Web3Provider | null;
+  provider: ethers.providers.Web3Provider | undefined;
   setProvider: (provider: ethers.providers.Web3Provider) => void;
-  signer: ethers.providers.JsonRpcSigner | null;
+  signer: ethers.providers.JsonRpcSigner | undefined;
   setSigner: (signer: ethers.providers.JsonRpcSigner) => void;
   wallet: string;
   setWallet: (wallet: string) => void;
@@ -17,9 +17,9 @@ export interface IStore {
 }
 
 const useStore = create<IStore>((set) => ({
-  provider: null,
+  provider: undefined,
   setProvider: (provider: ethers.providers.Web3Provider) => set({ provider }),
-  signer: null,
+  signer: undefined,
   setSigner: (signer: ethers.providers.JsonRpcSigner) => set({ signer }),
   wallet: "",
   setWallet: (wallet: string) => set({ wallet }),
