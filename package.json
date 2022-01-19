@@ -12,6 +12,7 @@
     "@mantine/core": "^3.6.0",
     "@mantine/hooks": "^3.6.0",
     "@mantine/next": "^3.6.0",
+    "@openzeppelin/contracts": "^4.4.2",
     "axios": "^0.24.0",
     "ethers": "^5.5.3",
     "ipfs-http-client": "^55.0.0",
