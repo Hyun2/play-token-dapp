@@ -21,7 +21,7 @@ const MintNft = () => {
 
   const handleClickCreate = async () => {
     if (imageURI) {
-      const erc721Contract = new ethers.Contract("0xcad815EFDc686aFa1D61b61B18e2Ff620d3cCD26", TozauNFT.abi, signer);
+      const erc721Contract = new ethers.Contract(process.env.NEXT_PUBLIC_ERC721_CA, TozauNFT.abi, signer);
       const transaction = await erc721Contract.mintNFT(imageURI);
       let tx = await transaction.wait();
       console.log(tx.events);

@@ -1,9 +1,11 @@
 import { Button, Col, Grid, Input, Modal, TextInput } from "@mantine/core";
 import { useInputState } from "@mantine/hooks";
+import { ethers } from "ethers";
 import { useState } from "react";
 import { IErc721 } from "../../typings/types";
 import useStore from "../../utils/store";
 import Erc721Card from "../Erc721Card";
+import TozauNFT from "../../build/contracts/TozauNFT.json";
 // import TransferErc721Modal from "./transferErc721Modal";
 
 const Erc721Column = () => {
@@ -11,17 +13,39 @@ const Erc721Column = () => {
   const [opened, setOpened] = useState(false);
   const [recipient, setRecipient] = useInputState("");
   const [selectedErc721, setSelectedErc721] = useState<IErc721 | null>(null);
+  const [tokenCA, setTokenCA] = useInputState("");
+  const [signer, wallet] = useStore((state) => [state.signer, state.wallet]);
+
+  const handleAddToken = async (e: any) => {
+    if (e.key === "Enter") {
+      try {
+        const erc721Contract = new ethers.Contract(tokenCA, TozauNFT.abi, signer);
+        // const erc721Contract = new ethers.Contract(nftmarketaddress, KBMarket.abi, signer);
+
+        // const balance = await erc721Contract.balanceOf(wallet);
+        const name = await erc721Contract.name();
+        const symbol = await erc721Contract.symbol();
+        const totalSupply = await erc721Contract.totalSupply();
+        console.log(name, symbol, totalSupply.toString());
+        // console.log(ethers.utils.formatUnits(balance, "ether"));
+        // console.log(name, symbol);
+        // console.log(tokenCA);
+        setTokenCA("");
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  };
 
   return (
     <>
       <div style={{ display: "flex" }}>
         <Input
-          onKeyDown={(e: any) => {
-            if (e.key === "Enter") {
-            }
-          }}
+          onKeyDown={handleAddToken}
           style={{ width: "308px" }}
           placeholder="ERC721 Token Contract Address"
+          onChange={setTokenCA}
+          value={tokenCA}
         />
       </div>
       <div>
